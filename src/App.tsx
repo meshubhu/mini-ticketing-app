@@ -153,19 +153,19 @@ const App: React.FC = () => {
   }, [debouncedQuery, priorityFilter, statusFilter]);
 
   // convenience: create some seed data when empty (for demo / testing)
-  useEffect(() => {
-    if (tickets.length === 0) {
-      const seed: Ticket[] = Array.from({ length: 1500 }).map((_, i) => ({
-        id: 1000 + i,
-        title: `Sample ticket #${i + 1}`,
-        description: `This is a seeded issue example number ${i + 1}. Use search to find "seed", "error", or number.`,
-        priority: i % 3 === 0 ? "High" : i % 3 === 1 ? "Medium" : "Low",
-        status: i % 2 === 0 ? "Open" : "Closed",
-        createdAt: Date.now() - i * 1000 * 60 * 60,
-      }));
-      setTickets(seed);
-    }
-  }, [tickets.length]);
+  // useEffect(() => {
+  //   if (tickets.length === 0) {
+  //     const seed: Ticket[] = Array.from({ length: 1500 }).map((_, i) => ({
+  //       id: 1000 + i,
+  //       title: `Sample ticket #${i + 1}`,
+  //       description: `This is a seeded issue example number ${i + 1}. Use search to find "seed", "error", or number.`,
+  //       priority: i % 3 === 0 ? "High" : i % 3 === 1 ? "Medium" : "Low",
+  //       status: i % 2 === 0 ? "Open" : "Closed",
+  //       createdAt: Date.now() - i * 1000 * 60 * 60,
+  //     }));
+  //     setTickets(seed);
+  //   }
+  // }, [tickets.length]);
 
   return (
     <div className="app-container">
