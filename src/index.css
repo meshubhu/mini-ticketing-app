@@ -1,0 +1,33 @@
+body {
+  background-color: #f8f9fa;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.app-container {
+  max-width: 960px;
+  margin: 40px auto;
+}
+
+.ticket-card {
+  transition: box-shadow .12s ease;
+}
+.ticket-card:hover {
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+.short-desc {
+  white-space: pre-wrap;
+}
+.priority-badge-low {
+  background-color: #d4edda;
+  color: #155724;
+}
+.priority-badge-medium {
+  background-color: #fff3cd;
+  color: #856404;
+}
+.priority-badge-high {
+  background-color: #f8d7da;
+  color: #721c24;
+}
