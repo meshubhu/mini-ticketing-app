@@ -1,69 +1,58 @@
-# React + TypeScript + Vite
+# Mini Ticketing App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Explain – Architecture & Decisions
 
-Currently, two official plugins are available:
+### 1. Component Structure  
+The app is broken into reusable, focused components:  
+- **TicketForm** – Handles creating tickets.  
+- **TicketList** – Renders the list of tickets.  
+- **TicketItem** – Displays a single ticket.  
+- **SearchBar** – Filters tickets by keyword.  
+- **TicketCounter** – Displays open ticket count.  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This separation ensures modularity, reusability, and easier maintainability.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 2. State Management  
+State is stored in the root component (`App.tsx`) using `useReducer` with a **generic reducer**.  
+This allows centralized updates and predictable state transitions.  
+We also persist state to `localStorage` so tickets remain after page refresh.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### 3. Performance Considerations  
+If the app scaled to 1,000+ tickets:  
+- Implement **pagination** or infinite scroll.  
+- Use `React.memo` to prevent unnecessary re-renders.  
+- Store search index in memory for faster lookups.  
+- Consider debounced search input.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 4. Search Behavior Improvements  
+- Add **debouncing** to reduce filter calls.  
+- Highlight matching keywords.  
+- Provide filter by priority or status.  
+- Show “No results” feedback.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 5. GPT/Google Usage  
+Used ChatGPT for:  
+- Code scaffolding in React + TS + Vite.  
+- Generic reducer logic.  
+- LocalStorage persistence integration.
+
+---
+
+## Debug – Fix a Broken Ticket Counter
+
+### Fixed Code
+```tsx
+type Ticket = { title: string; description: string; priority: string; status?: string };
+
+function TicketCounter({ tickets }: { tickets: Ticket[] }) {
+  const openCount = tickets.filter(ticket => ticket.status !== 'closed').length;
+  return <div>You have {openCount} open tickets</div>;
+}
