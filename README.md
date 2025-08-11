@@ -15,9 +15,9 @@ This separation ensures modularity, reusability, and easier maintainability.
 ---
 
 ### 2. State Management  
-State is stored in the root component (`App.tsx`) using `useReducer` with a **generic reducer**.  
-This allows centralized updates and predictable state transitions.  
-We also persist state to `localStorage` so tickets remain after page refresh.
+State is stored in the root component (`App.tsx`) using **`useState` hooks**.  
+Each state variable manages a specific concern (tickets, search term, etc.).  
+We also persist tickets to `localStorage` so they remain after page refresh.
 
 ---
 
@@ -41,8 +41,8 @@ If the app scaled to 1,000+ tickets:
 ### 5. GPT/Google Usage  
 Used ChatGPT for:  
 - Code scaffolding in React + TS + Vite.  
-- Generic reducer logic.  
-- LocalStorage persistence integration.
+- LocalStorage persistence logic.  
+- Suggestions for modular component structure.
 
 ---
 

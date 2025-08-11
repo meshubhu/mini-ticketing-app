@@ -1,8 +1,8 @@
-import React from 'react'
+import React from "react";
 
 interface Props {
-  value: string
-  onChange: (v: string) => void
+  value: string;
+  onChange: (v: string) => void;
 }
 
 const SearchBar: React.FC<Props> = ({ value, onChange }) => {
@@ -10,12 +10,12 @@ const SearchBar: React.FC<Props> = ({ value, onChange }) => {
     <input
       type="search"
       className="form-control"
-      placeholder="Search tickets by title or description..."
+      placeholder="Search tickets (title or description)..."
       value={value}
       onChange={(e) => onChange(e.target.value)}
       aria-label="Search tickets"
     />
-  )
-}
+  );
+};
 
-export default SearchBar
+export default React.memo(SearchBar);
