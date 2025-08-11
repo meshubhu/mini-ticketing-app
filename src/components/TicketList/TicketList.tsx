@@ -13,7 +13,7 @@ interface Props {
 
 const TicketList: React.FC<Props> = ({ tickets, query, onLoadMore, hasMore, onToggleStatus }) => {
   // hook returns ref to attach to sentinel element for intersection observer
-  const sentinelRef = useInfiniteScroll({ enabled: hasMore, onLoad: onLoadMore });
+  const {ref: sentinelRef, observing: isLoading} = useInfiniteScroll({ enabled: hasMore, onLoad: onLoadMore });
 
   const renderItem = useCallback(
     (t: Ticket) => <TicketItem key={t.id} ticket={t} query={query} onToggleStatus={onToggleStatus} />,
@@ -32,7 +32,7 @@ const TicketList: React.FC<Props> = ({ tickets, query, onLoadMore, hasMore, onTo
 
       <div ref={sentinelRef as React.RefObject<HTMLDivElement>} style={{ height: 1, marginTop: 8 }} />
 
-      {hasMore && tickets.length > 0 && (
+      {(hasMore || isLoading) && tickets.length > 0 && (
         <div className="text-center mt-2">
           <small className="text-muted">Loading more…</small>
         </div>

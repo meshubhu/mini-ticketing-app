@@ -30,5 +30,5 @@ export function useInfiniteScroll({
     };
   }, [enabled, onLoad]);
 
-  return ref;
+  return {ref, observing};
 }
